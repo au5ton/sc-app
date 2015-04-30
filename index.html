@@ -18,7 +18,7 @@
             width: 150px;
             height: 150px;
         }
-        #streamurl, #downloadurl {
+        #streamurl, #downloadurl, #json {
             font-family: monospace;
             font-weight: bold;
         }
@@ -41,6 +41,9 @@
 <br>
 <input id="button_start" type="button" value="Start Streaming" onclick="doTheThing();"></input>
 <input id="button_stop" type="button" value="Reset Stream" onclick="soundManager.stopAll();"></input>
+<hr>
+<h3>JSON Object:</h3>
+<p id="json"></p>
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
@@ -67,6 +70,7 @@
             document.getElementById("albumArt").setAttribute("src",result.artwork_url);
             document.getElementById("streamurl").innerHTML = result.stream_url;
             document.getElementById("downloadurl").innerHTML = result.download_url;
+            document.getElementById("json").innerHTML = JSON.stringify(result);
         });
     }
 
