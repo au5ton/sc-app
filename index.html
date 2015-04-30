@@ -43,6 +43,7 @@
 <body>
 
     <h1 id="title">undefined</h1>
+    <p class="no-margin">By</p>
     <h3 id="artist">undefined</h3>
     <img id="albumArt" src="http://placehold.it/150x150">
     <p style="margin-bottom: 0;">Steamable URL: <a id="dl-link" href=""><span id="streamurl">undefined</span></a></p>
@@ -62,6 +63,7 @@
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="FileSaver/Blob.js"></script>
 <script src="FileSaver/FileSaver.min.js"></script>
 <script src="http://connect.soundcloud.com/sdk.js"></script>
 <script>
@@ -113,7 +115,8 @@
     function downloadFile(){
         if(dl_url != undefined){
             console.log("dl_url is ready...");
-            $.ajax({
+            //Domain policy won't allow this
+            /*$.ajax({
                 crossDomain: true,
                 url: dl_url,
                 beforeSend: function(){
@@ -129,7 +132,9 @@
                     console.error(textStatus);
                     console.error(errorThrown);
                 }
-            });   
+            });*/
+            window.location = dl_url;
+            
         }
     }
 
