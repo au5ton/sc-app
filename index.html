@@ -26,10 +26,13 @@
             background: silver;
             width: 90vw;
         }
-        #help {
+        .help {
             font-style: italic;
             margin: 0;
             color: gray;
+        }
+        .no-margin {
+            margin: 0;
         }
         body {
             font-family: "Avenir", sans-serif;
@@ -42,10 +45,11 @@
     <h1 id="title">undefined</h1>
     <h3 id="artist">undefined</h3>
     <img id="albumArt" src="http://placehold.it/150x150">
-    <p>Steamable URL: <a id="dl-link" href=""><span id="streamurl">undefined</span></a></p>
+    <p style="margin-bottom: 0;">Steamable URL: <a id="dl-link" href=""><span id="streamurl">undefined</span></a></p>
+    <p class="help">Right click and Save As to download</p>
     <p>Downloadable URL: <span id="downloadurl">undefined</span></p>
     <hr>
-    <p id="help">Paste the URL of a SoundCloud song and it'll be played.</p>
+    <p class="help">Paste the URL of a SoundCloud song and it'll be played.</p>
     <input id="textinput" type="text"></input>
 <br>
 <input id="button_start" type="button" value="Start Streaming" onclick="doTheThing();"></input>
@@ -64,7 +68,7 @@
     var willPlay = false;
     // initialize client with app credentials
     SC.initialize({
-        client_id: '5833455462fac11c7b4ed7dd05c6b54a',
+        client_id: const_client_id,
         redirect_uri: 'http://www.austinj.net/sc-app/callback.html'
     });
 
@@ -84,7 +88,7 @@
 
     function doTheThing(){
         var sound = document.getElementById("textinput").value;
-        $.get('http://api.soundcloud.com/resolve.json?url='+sound+'&client_id=5833455462fac11c7b4ed7dd05c6b54a', function (result) {
+        $.get('http://api.soundcloud.com/resolve.json?url='+sound+'&client_id='+const_client_id, function (result) {
             console.log(result);
             if(willPlay === true){
                 SC.stream('/tracks/'+result.id, function(sound) { 
@@ -95,7 +99,7 @@
             document.getElementById("title").innerHTML = result.title;
             document.getElementById("artist").innerHTML = result.user.username;
             document.getElementById("albumArt").setAttribute("src",result.artwork_url);
-            document.getElementById("streamurl").innerHTML = result.stream_url;
+            document.getElementById("streamurl").innerHTML = result.stream_url+"?client_id="+const_client_id;
             document.getElementById("dl-link").setAttribute("href",result.stream_url+"?client_id="+const_client_id);
             document.getElementById("downloadurl").innerHTML = result.download_url;
             document.getElementById("json").innerHTML = JSON.stringify(result,null,2);
