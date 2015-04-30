@@ -32,7 +32,7 @@
             color: gray;
         }
         body {
-            font-family: "Avenir", "Segoe UI", sans-serif;
+            font-family: "Avenir", sans-serif;
         }
     </style>
 
@@ -79,7 +79,7 @@
             document.getElementById("albumArt").setAttribute("src",result.artwork_url);
             document.getElementById("streamurl").innerHTML = result.stream_url;
             document.getElementById("downloadurl").innerHTML = result.download_url;
-            document.getElementById("json").innerHTML = JSON.stringify(result);
+            document.getElementById("json").innerHTML = JSON.stringify(result,null,2);
         });
     }
 
