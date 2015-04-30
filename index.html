@@ -22,29 +22,40 @@
             font-family: monospace;
             font-weight: bold;
         }
+        #textinput {
+            background: silver;
+            width: 90vw;
+        }
     </style>
 
 </head>
 <body>
-    
-    <h1 id="title"></h1>
-    <h3 id="artist"></h3>
-    <img id="albumArt" src="">
-    <p>Steamable URL: <span id="streamurl"></span></p>
-    <p>Downloadable URL: <span id="downloadurl"></span></p>
-    
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="http://connect.soundcloud.com/sdk.js"></script>
-    <script>
-        // initialize client with app credentials
-        SC.initialize({
-            client_id: '5833455462fac11c7b4ed7dd05c6b54a',
-            redirect_uri: 'http://www.austinj.net/sc-app/callback.html'
-        });
-        
-        var sound = prompt("Enter the URL of the sound:");
-        //https://soundcloud.com/kristofferson/stop-crying-your-heart-out
-        
+
+    <h1 id="title">undefined</h1>
+    <h3 id="artist">undefined</h3>
+    <img id="albumArt" src="http://placehold.it/150x150">
+    <p>Steamable URL: <span id="streamurl">undefined</span></p>
+    <p>Downloadable URL: <span id="downloadurl">undefined</span></p>
+    <hr>
+    <input id="textinput" type="text"></input>
+<br>
+<input id="button_start" type="button" value="Start Streaming" onclick="doTheThing();"></input>
+<input id="button_stop" type="button" value="Reset Stream" onclick="soundManager.stopAll();"></input>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script src="http://connect.soundcloud.com/sdk.js"></script>
+<script>
+    // initialize client with app credentials
+    SC.initialize({
+        client_id: '5833455462fac11c7b4ed7dd05c6b54a',
+        redirect_uri: 'http://www.austinj.net/sc-app/callback.html'
+    });
+
+    //https://soundcloud.com/kristofferson/stop-crying-your-heart-out
+
+    function doTheThing(){
+        var sound = document.getElementById("textinput").value;
         $.get('http://api.soundcloud.com/resolve.json?url='+sound+'&client_id=5833455462fac11c7b4ed7dd05c6b54a', function (result) {
             console.log(result);
             SC.stream('/tracks/'+result.id, function(sound) { 
@@ -57,8 +68,9 @@
             document.getElementById("streamurl").innerHTML = result.stream_url;
             document.getElementById("downloadurl").innerHTML = result.download_url;
         });
+    }
 
-        
-    </script>
+
+</script>
 </body>
 </html>
