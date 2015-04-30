@@ -42,7 +42,7 @@
     <h1 id="title">undefined</h1>
     <h3 id="artist">undefined</h3>
     <img id="albumArt" src="http://placehold.it/150x150">
-    <p>Steamable URL: <span id="streamurl">undefined</span></p>
+    <p>Steamable URL: <a id="dl-link" href=""><span id="streamurl">undefined</span></a></p>
     <p>Downloadable URL: <span id="downloadurl">undefined</span></p>
     <hr>
     <p id="help">Paste the URL of a SoundCloud song and it'll be played.</p>
@@ -58,6 +58,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <script src="http://connect.soundcloud.com/sdk.js"></script>
 <script>
+    
+    var const_client_id = "5833455462fac11c7b4ed7dd05c6b54a";
     // initialize client with app credentials
     SC.initialize({
         client_id: '5833455462fac11c7b4ed7dd05c6b54a',
@@ -78,6 +80,7 @@
             document.getElementById("artist").innerHTML = result.user.username;
             document.getElementById("albumArt").setAttribute("src",result.artwork_url);
             document.getElementById("streamurl").innerHTML = result.stream_url;
+            document.getElementById("dl-link").setAttribute("href",result.stream_url+"?client_id="+const_client_id);
             document.getElementById("downloadurl").innerHTML = result.download_url;
             document.getElementById("json").innerHTML = JSON.stringify(result,null,2);
         });
