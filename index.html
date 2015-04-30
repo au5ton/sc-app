@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
-    <title>App</title>
+    <title>SoundCloud test grabber</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,6 +26,14 @@
             background: silver;
             width: 90vw;
         }
+        #help {
+            font-style: italic;
+            margin: 0;
+            color: gray;
+        }
+        body {
+            font-family: "Avenir", "Segoe UI", sans-serif;
+        }
     </style>
 
 </head>
@@ -37,6 +45,7 @@
     <p>Steamable URL: <span id="streamurl">undefined</span></p>
     <p>Downloadable URL: <span id="downloadurl">undefined</span></p>
     <hr>
+    <p id="help">Paste the URL of a SoundCloud song and it'll be played.</p>
     <input id="textinput" type="text"></input>
 <br>
 <input id="button_start" type="button" value="Start Streaming" onclick="doTheThing();"></input>
