@@ -62,7 +62,7 @@
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-<script src="https://raw.githubusercontent.com/eligrey/FileSaver.js/master/FileSaver.min.js"></script>
+<script src="FileSaver/FileSaver.min.js"></script>
 <script src="http://connect.soundcloud.com/sdk.js"></script>
 <script>
     
@@ -112,12 +112,22 @@
     
     function downloadFile(){
         if(dl_url != undefined){
+            console.log("dl_url is ready...");
             $.ajax({
                 crossDomain: true,
                 url: dl_url,
+                beforeSend: function(){
+                    console.log("Sending request...");
+                },
                 success: function(data) {
+                    console.log("Success!");
                     var blob = new Blob(data, {type: "audio/mpeg3"});
                     saveAs(blob, "hello world.mp3");
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    console.error(jqXHR);
+                    console.error(textStatus);
+                    console.error(errorThrown);
                 }
             });   
         }
