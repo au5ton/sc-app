@@ -93,14 +93,10 @@
 
     function doTheThing(){
         var sound = document.getElementById("textinput").value;
-        $.get('http://api.soundcloud.com/resolve.json?url='+sound+'&client_id='+const_client_id, function (result) {
+        $.get('http://api.soundcloud.com/resolve.json?url='+sound+'&client_id='+const_client_id, {
+            headers: { 'Access-Control-Allow-Origin': '*' }
+        },function (result) {
             console.log(result);
-            if(willPlay === true){
-                SC.stream('/tracks/'+result.id, function(sound) { 
-                    console.log(sound);
-                    sound.play();
-                });
-            }
             document.getElementById("title").innerHTML = result.title;
             document.getElementById("artist").innerHTML = result.user.username;
             document.getElementById("albumArt").setAttribute("src",result.artwork_url);
@@ -112,6 +108,12 @@
             }
             document.getElementById("json").innerHTML = JSON.stringify(result,null,2);
             dl_url = result.stream_url+"?client_id="+const_client_id;
+            if(willPlay === true){
+                SC.stream('/tracks/'+result.id, function(sound) { 
+                    console.log(sound);
+                    sound.play();
+                });
+            }
         });
     }
     
