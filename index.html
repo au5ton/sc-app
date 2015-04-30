@@ -50,6 +50,7 @@
 <br>
 <input id="button_start" type="button" value="Start Streaming" onclick="doTheThing();"></input>
 <input id="button_stop" type="button" value="Reset Stream" onclick="soundManager.stopAll();"></input>
+<input id="button_toggle" type="button" value="Song Playing Dectivated, click to activate" onclick="buttonToggled();"></input>
 <hr>
 <h3>JSON Object:</h3>
 <p id="json"></p>
@@ -60,22 +61,37 @@
 <script>
     
     var const_client_id = "5833455462fac11c7b4ed7dd05c6b54a";
+    var willPlay = false;
     // initialize client with app credentials
     SC.initialize({
         client_id: '5833455462fac11c7b4ed7dd05c6b54a',
         redirect_uri: 'http://www.austinj.net/sc-app/callback.html'
     });
 
+    function buttonToggled(){
+        var button = document.getElementById("button_toggle");
+        if(willPlay === false){
+            button.setAttribute("value","Song Playing Activated, click to deactivate");
+            willPlay = true;
+        }
+        else {
+            button.setAttribute("value","Song Playing Dectivated, click to activate");
+            willPlay = false;
+        }
+    }
+    
     //https://soundcloud.com/kristofferson/stop-crying-your-heart-out
 
     function doTheThing(){
         var sound = document.getElementById("textinput").value;
         $.get('http://api.soundcloud.com/resolve.json?url='+sound+'&client_id=5833455462fac11c7b4ed7dd05c6b54a', function (result) {
             console.log(result);
-            SC.stream('/tracks/'+result.id, function(sound) { 
-                console.log(sound);
-                sound.play();
-            });
+            if(willPlay === true){
+                SC.stream('/tracks/'+result.id, function(sound) { 
+                    console.log(sound);
+                    sound.play();
+                });
+            }
             document.getElementById("title").innerHTML = result.title;
             document.getElementById("artist").innerHTML = result.user.username;
             document.getElementById("albumArt").setAttribute("src",result.artwork_url);
