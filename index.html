@@ -48,7 +48,7 @@
     <img id="albumArt" src="http://placehold.it/150x150">
     <p style="margin-bottom: 0;">Steamable URL: <a id="dl-link" href=""><span id="streamurl">undefined</span></a></p>
     <p class="help">Right click and Save As to download</p>
-    <p>Downloadable URL: <span id="downloadurl">undefined</span></p>
+    <p>Downloadable URL (if publically available): <a id="realdl-link" href=""><span id="downloadurl">undefined</span></a></p>
     <hr>
     <p class="help">Paste the URL of a SoundCloud song and it'll be played.</p>
     <input id="textinput" type="text"></input>
@@ -106,7 +106,10 @@
             document.getElementById("albumArt").setAttribute("src",result.artwork_url);
             document.getElementById("streamurl").innerHTML = result.stream_url+"?client_id="+const_client_id;
             document.getElementById("dl-link").setAttribute("href",result.stream_url+"?client_id="+const_client_id);
-            document.getElementById("downloadurl").innerHTML = result.download_url;
+            document.getElementById("downloadurl").innerHTML = result.download_url+"?client_id="+const_client_id;
+            if(!(result.download_url === undefined || result.download_url === null)){
+                document.getElementById("realdl-link").setAttribute("href",result.download_url+"?client_id="+const_client_id);
+            }
             document.getElementById("json").innerHTML = JSON.stringify(result,null,2);
             dl_url = result.stream_url+"?client_id="+const_client_id;
         });
