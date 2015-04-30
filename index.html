@@ -11,21 +11,19 @@
     </head>
     <body>
         <script src="http://connect.soundcloud.com/sdk.js"></script>
-        <script>
-        // initialize client with app credentials
-        SC.initialize({
-          client_id: '5833455462fac11c7b4ed7dd05c6b54a'
-        });
+<script>
+// initialize client with app credentials
+SC.initialize({
+  client_id: '5833455462fac11c7b4ed7dd05c6b54a',
+  redirect_uri: 'http://www.austinj.net/sc-app/callback.html'
+});
 
-        // initiate auth popup
-//        SC.connect(function() {
-//          SC.get('/me', function(me) { 
-//            alert('Hello, ' + me.username); 
-//          });
-//        });
-            SC.get('/macphage', function(me) { 
-            alert('Hello, ' + me.username); 
-          });
-        </script>
+// initiate auth popup
+SC.connect(function() {
+  SC.get('/me', function(me) { 
+    alert('Hello, ' + me.username); 
+  });
+});
+</script>
     </body>
 </html>
